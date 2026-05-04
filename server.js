@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const ADMIN_USER = process.env.ADMIN_USER || "ZTR@2023";
 const ADMIN_PASS = process.env.ADMIN_PASS || "141219";
-const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
+const CORS_ORIGIN = process.env.CORS_ORIGIN || "https://racelowpoly.ztrcompany.site/";
 
 if (!process.env.DATABASE_URL) {
   console.error("ERRO: DATABASE_URL não configurado.");
