@@ -23,8 +23,21 @@ const pool = new Pool({
   }
 });
 
+const allowedOrigins = [
+  "https://racelowpoly.ztrcompany.site",
+  "https://racelowpoly.ztrcompany.site/",
+  "http://127.0.0.1:5503",
+  "http://localhost:5503"
+];
+
 app.use(cors({
-  origin: CORS_ORIGIN
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Origem não permitida pelo CORS"));
+  }
 }));
 
 app.use(express.json({ limit: "10mb" }));
