@@ -8,7 +8,12 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 const ADMIN_USER = process.env.ADMIN_USER || "ZTR@2023";
-const ADMIN_PASS = process.env.ADMIN_PASS || "141219";
+const ADMIN_PASS = process.env.ADMIN_PASS;
+if (!ADMIN_PASS) {
+  console.error("ADMIN_PASS environment variable is required; refusing to start with a default password.");
+  process.exit(1);
+}
+
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "https://racelowpoly.ztrcompany.site/";
 
 if (!process.env.DATABASE_URL) {
@@ -19,7 +24,7 @@ if (!process.env.DATABASE_URL) {
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false
+    rejectUnauthorized: process.env.DATABASE_SSL_REJECT_UNAUTHORIZED !== "false"
   }
 });
 
